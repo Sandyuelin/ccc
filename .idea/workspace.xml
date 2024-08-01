@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4afb1f50-8a3b-4c00-9bf2-b98579550b96" name="Changes" comment="initial update">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/encode.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/render.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/preprocess.py" afterDir="false" />
-    </list>
+    <list default="true" id="4afb1f50-8a3b-4c00-9bf2-b98579550b96" name="Changes" comment="structure established" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,11 +73,20 @@
       <option name="project" value="LOCAL" />
       <updated>1722496834443</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="structure established">
+      <option name="closed" value="true" />
+      <created>1722498874917</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1722498874917</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial update" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial update" />
+    <MESSAGE value="structure established" />
+    <option name="LAST_COMMIT_MESSAGE" value="structure established" />
   </component>
 </project>
