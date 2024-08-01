@@ -1,0 +1,7 @@
+torch
+clip
+opencv-python
+numpy
+scikit-learn
+tensorflow
+torchvision
