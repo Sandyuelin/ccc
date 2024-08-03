@@ -7,6 +7,26 @@ from PIL import Image
 import logging
 
 
+def is_dark_background(img, threshold=100):
+    """
+    Check if the background is dark.
+    """
+    # Calculate the mean of pixels along the x-axis and the mean of 10 pixels along the y-axis
+    x_mean = np.mean(img, axis=(0, 1))
+    y_mean = np.mean(img[:, :10], axis=(0, 1))
+
+    background_mean = np.mean([x_mean, y_mean])
+
+    return background_mean < threshold
+
+
+def invert_image(img):
+    """
+    Invert the image colors.
+    """
+    return 255 - img
+
+
 def dynamic_thresh(img):
     """
     Calculate the dynamic threshold for binarizing an image channel.
@@ -58,6 +78,9 @@ def process_one_image(img):
     if img is None:
         raise ValueError("Image is None")
 
+    if is_dark_background(img):
+        img = invert_image(img)
+
     if len(img.shape) == 3:  # Process color images
         channels = np.split(img, 3, axis=2)
         ch_list = []
@@ -76,7 +99,7 @@ def process_one_image(img):
         img_p = np.concatenate(ch_list, axis=2)
 
         # Apply median blur to remove noise
-        kernel_size = 3
+        kernel_size = 5
         img_p = cv2.medianBlur(img_p, kernel_size)
 
         return img_p
@@ -85,7 +108,7 @@ def process_one_image(img):
         raise ValueError("Image is not a color image with 3 channels")
 
 
-def preprocess_images_from_directory(input_dir, output_dir, target_size):
+def preprocess_images_from_directory(input_dir, output_dir):
     """
     Preprocess images from the input directory and save to the output directory.
     """
@@ -105,9 +128,16 @@ def preprocess_images_from_directory(input_dir, output_dir, target_size):
                     # Preprocess image
                     preprocessed_image = process_one_image(image)
 
-                    # Resize image to target size
-                    preprocessed_image = cv2.resize(preprocessed_image, (target_size, target_size),
-                                                    interpolation=cv2.INTER_AREA)
+                    # Calculate padding to make the image square
+                    h, w, _ = preprocessed_image.shape
+                    if h > w:
+                        pad = (h - w) // 2
+                        preprocessed_image = cv2.copyMakeBorder(preprocessed_image, 0, 0, pad, pad, cv2.BORDER_CONSTANT,
+                                                                value=[255, 255, 255])
+                    else:
+                        pad = (w - h) // 2
+                        preprocessed_image = cv2.copyMakeBorder(preprocessed_image, pad, pad, 0, 0, cv2.BORDER_CONSTANT,
+                                                                value=[255, 255, 255])
 
                     # Convert to PIL Image
                     preprocessed_image_pil = Image.fromarray(preprocessed_image)
@@ -129,6 +159,5 @@ def preprocess_images_from_directory(input_dir, output_dir, target_size):
 
 if __name__ == "__main__":
     input_directory = r"C:\Users\dell\Desktop\test_single_discriminate"  # Update with the actual path
-    output_directory = r"C:\Users\dell\Desktop\preprocessed_images"  # Update with the actual path
-    target_size = 256  # Desired size for the larger dimension
-    preprocess_images_from_directory(input_directory, output_directory, target_size)
+    output_directory = r"C:\Users\dell\Desktop\preprocessed.images"  # Update with the actual path
+    preprocess_images_from_directory(input_directory, output_directory)
