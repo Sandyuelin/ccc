@@ -1,4 +1,4 @@
-# Complex and Simplified Chinese Character Classifier
+# Chinese Character Classifier (to distinguish simplified and complex version)
 
 
 ### Purpose
@@ -10,7 +10,8 @@ with the images corresponding the actual character
 ```
 
 ### Procedure
-- preprocess
-- encode
-- organize
+- preprocess the image
+- create the image data using PIL
+- extract the latents of both created data and existing data
+- organize the folder by calculating the cosine similarity
 
